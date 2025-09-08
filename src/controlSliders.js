@@ -1,12 +1,12 @@
-import { GraphBase } from './graphBase.js';
+import { ViewerBase } from './viewerBase.js';
 
-export class ControlSliders extends GraphBase {
+export class ControlSliders extends ViewerBase {
   constructor(
     containerSelector,
     options = {},
     name = 'nameIsWiredInConstructor_ControlSliders1',
   ) {
-    // data for GraphBase which takes care of communication between classes
+    // data for ViewerBase which takes care of communication between classes
     super(name, {
       dataTypesSend: ['controlSliders'],
       dataTypesReceive: [],

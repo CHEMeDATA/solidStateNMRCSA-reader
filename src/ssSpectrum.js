@@ -226,14 +226,14 @@ export class SsSpectrum extends ViewerBase {
 
   async loadPickupDataFiles() {
     this.rank2ssbs = await d3
-      .json('../data/ssNMR/rank2ssbs.json')
+      .json('./src/rank2ssbs.json')
       .catch((error) => {
         console.error('Error loading the rank2ssbs file:', error);
         return null; // Ensure null is returned to avoid further processing
       });
 
     this.rank2stat = await d3
-      .json('../data/ssNMR/rank2stat.json')
+      .json('./src/rank2stat.json')
       .catch((error) => {
         console.error('Error loading the rank2stat file:', error);
         return null; // Ensure null is returned to avoid further processing
