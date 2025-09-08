@@ -1,10 +1,11 @@
 {
 	"listObject": [
 		{
-			"object": "NmrSpectrum",
+			"object": "SsSpectrum",
 			"type": "viewer",
 			"repository": "CHEMeDATA/solidStateNMRCSA-reader",
 			"fileNameViewerUSELESSMAXBE_REDUNDANT": [
+				"src/ssSpectrum.js"
 			],
 			"jsLibraryView": [
 				{"repository":"CHEMeDATA/viewers-base", "fileName": "src/viewerBase.js"},
@@ -14,6 +15,7 @@
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/rank2stat.json"}
 			],
 			"listObjectSchema": [
+				"solidStateNMRCSA"
 			]
 		}
 	]
