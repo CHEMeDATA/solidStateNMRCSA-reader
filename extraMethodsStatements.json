@@ -1,0 +1,18 @@
+{
+	"listObject": [
+		{
+			"object": "NmrSpectrum",
+			"type": "viewer",
+			"repository": "CHEMeDATA/solidStateNMRCSA-reader",
+			"fileNameViewerUSELESSMAXBE_REDUNDANT": [
+			],
+			"jsLibraryView": [
+				{"repository":"CHEMeDATA/viewers-base", "fileName": "src/viewerBase.js"},
+				{"repository":"CHEMeDATA/NMRspectrum-viewer", "fileName": "src/controlSlider.js", "include": "ControlSliders"},
+				{"repository":"CHEMeDATA/NMRspectrum-viewer", "fileName": "src/ssSprectrum.js", "include": "SsSpectrum"}
+			],
+			"listObjectSchema": [
+			]
+		}
+	]
+}

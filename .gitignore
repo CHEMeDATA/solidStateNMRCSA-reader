@@ -1,0 +1,5 @@
+**/hidden/
+**/.DS_Store
+node_modules/
+.vscode/
+output/
