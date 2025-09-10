@@ -15,7 +15,7 @@
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/rank2stat.json"}
 			],
 			"listObjectSchema": [
-				"solidStateNMRCSA"
+				"NMRspinSystemModel_CSA"
 			]
 		}
 	]
