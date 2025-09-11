@@ -56,6 +56,14 @@ export class SsSpectrum extends ViewerBase {
 		this.init();
 	}
 
+  static getProperDataForVisualization(inputData, objClassName) {
+  console.log("method inputData.. ", inputData)
+  console.log("method objClassName.. ", objClassName)
+  			if (objClassName == "NMRspinSystemModel_CSA") { // do not remove automatic code...
+  				return inputData;
+        }
+  }
+  
 	plotCalculatingIntegral(
 		deltaIso,
 		deltaZz,

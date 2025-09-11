@@ -14,7 +14,7 @@
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/ssSpectrum.js", "include": "SsSpectrum"},
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/rank2ssbs.js"},
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/rank2stat.js"},
-				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/nMRspinSystemModel_CSA.js"}
+				{"repository":"CHEMeDATA/nmr-objects", "fileName": "src/nMRspinSystemModel_CSA.js"}
 			],
 			"listObjectSchema": [
 				"NMRspinSystemModel_CSA"
