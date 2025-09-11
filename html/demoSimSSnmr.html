@@ -23,6 +23,7 @@
 	<script type="module">
 		import { SsSpectrum } from "./src/ssSpectrum.js";
 		import { ControlSliders } from "./src/controlSliders.js";
+		import { NMRspinSystemModel_CSA } from "./src/nMRspinSystemModel_CSA.js";
 		const width = 500;
 		const height = 252;
 		const svg = d3
@@ -31,7 +32,10 @@
 			.attr("height", height)
 			.style("shape-rendering", "crispEdges")
 		const CSAvalues = [-100, 600, 300];
-		const ssSpectrum = new SsSpectrum([{ dispValue1: CSAvalues[0] }, { dispValue1: CSAvalues[1] }, { dispValue1: CSAvalues[2] }], svg);
+		const inputArrayOfCSA = [CSAvalues];
+		const theNMRspinSystemModel_CSA = new NMRspinSystemModel_CSA({demo: inputArrayOfCSA})
+		const ssSpectrum = new SsSpectrum(theNMRspinSystemModel_CSA, svg);
+		//const ssSpectrum = new SsSpectrum([{ dispValue1: CSAvalues[0] }, { dispValue1: CSAvalues[1] }, { dispValue1: CSAvalues[2] }], svg);
 
 		const sliders = new ControlSliders('#slider-container2', {
 			min: -1000,

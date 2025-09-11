@@ -2,10 +2,27 @@ import { ViewerBase } from "./viewerBase.js";
 import { rank2ssbs } from "./rank2ssbs.js";
 import { rank2stat } from "./rank2stat.js";
 export class SsSpectrum extends ViewerBase {
+  /* Structure of input data
+  {
+    "$schema": "https://chemedata.github.io/schema/v1/schema/NMRspinSystemModel_CSA.json",
+    "wildComment": "Created by schema/scripts/createSchemaSomeInstances.js using function createInstance",
+    "spins": [
+        {
+            "wildComment": "Created by schema/scripts/createSchemaSomeInstances.js using function createInstance",
+            "typeVariableString": "ChemicalShift",
+            "tensorValues": {
+                "wildComment": "Created by schema/scripts/createSchemaSomeInstances.js using function createInstance",
+                "xx": 120,
+                "yy": 87,
+                "zz": 51
+            }
+        }
+    ]
+}
+*/
 	constructor(
 		inputData,
 		svg,
-
 		settingsInput = {},
 		smallScreen = false,
 		regionsData = {},
@@ -24,8 +41,10 @@ export class SsSpectrum extends ViewerBase {
 		// { dispValue1: 600 },
 		// { dispValue1: -300 }
 		// ]
-
-		this.data = inputData;
+    const xx = inputData.data.spins[0].tensorValues.xx;
+    const yy = inputData.data.spins[0].tensorValues.yy;
+    const zz = inputData.data.spins[0].tensorValues.zz;
+		this.data = [{ dispValue1: xx }, { dispValue1: yy }, { dispValue1: zz }];
 		this.svg = svg;
 		this.width = +this.svg.attr("width"); // "+" converts string to number
 		this.height = +this.svg.attr("height");
