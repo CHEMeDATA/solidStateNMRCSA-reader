@@ -14,17 +14,20 @@
 
 	<script type="module">
 		import { SsSpectrum } from "./src/ssSpectrum.js";
+		import { NMRspinSystemModel_CSA } from "./src/nMRspinSystemModel_CSA.js";
 		const svg = d3
 			.select("#drawingSVG")
 			.attr("width", 500)
 			.attr("height", 252)
 			.style("shape-rendering", "crispEdges")
-		const CSAvalues = [
-			{ dispValue1: 800},
-			{ dispValue1: 600},
-			{ dispValue1: 500}
-		];
-		const ssSpectrum = new SsSpectrum(CSAvalues, svg);
+
+		const CSAvalues = [-100, 600, 300];
+		const inputArrayOfCSA = [CSAvalues];
+
+		const theNMRspinSystemModel_CSA = new NMRspinSystemModel_CSA({demo: inputArrayOfCSA})
+		
+		const ssSpectrum = new SsSpectrum(theNMRspinSystemModel_CSA, svg);
+
 	</script>
 
 </body>
