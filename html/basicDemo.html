@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+
+	<h3>Static demo of powder pattern solid-state NMR 1.2</h3>
+	<div>
+		<svg id="drawingSVG"></svg>
+	</div>
+
+	<script type="module">
+		import { SsSpectrum } from "./src/ssSpectrum.js";
+		const svg = d3
+			.select("#drawingSVG")
+			.attr("width", 500)
+			.attr("height", 252)
+			.style("shape-rendering", "crispEdges")
+		const CSAvalues = [
+			{ dispValue1: 800},
+			{ dispValue1: 600},
+			{ dispValue1: 500}
+		];
+		const ssSpectrum = new SsSpectrum(CSAvalues, svg);
+	</script>
+
+</body>
+
+</html>

@@ -7,7 +7,7 @@
 
 <body>
 
-	<h3>Demo powder pattern solid-state NMR 1.1</h3>
+	<h3>Demo powder pattern solid-state NMR 1.2</h3>
 
 	<!-- the tooltip is used to display information when rolling over the DispProxToVal-->
 	<div id="tooltip"
@@ -18,15 +18,20 @@
 		<svg id="drawingSVG"></svg>
 	</div>
 
-	<div id="slider-container2">
-	</div>
+	<div id="slider-container2"></div>
+	
 	<script type="module">
 		import { SsSpectrum } from "./src/ssSpectrum.js";
 		import { ControlSliders } from "./src/controlSliders.js";
-
-		const ssSpectrum = new SsSpectrum("#drawingSVG");
-		
-		ssSpectrum.init();
+		const width = 500;
+		const height = 252;
+		const svg = d3
+			.select("#drawingSVG")
+			.attr("width", width)
+			.attr("height", height)
+			.style("shape-rendering", "crispEdges")
+		const CSAvalues = [-100, 600, 300];
+		const ssSpectrum = new SsSpectrum([{ dispValue1: CSAvalues[0] }, { dispValue1: CSAvalues[1] }, { dispValue1: CSAvalues[2] }], svg);
 
 		const sliders = new ControlSliders('#slider-container2', {
 			min: -1000,
@@ -38,6 +43,7 @@
 			precision: 0,
 			constantShift: 0, // ref. value 
 			number: 3,
+			initialValue : CSAvalues
 		});
 
 
