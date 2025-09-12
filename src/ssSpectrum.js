@@ -60,7 +60,7 @@ export class SsSpectrum extends ViewerBase {
   console.log("method inputData.. ", inputData)
   console.log("method objClassName.. ", objClassName)
         if (objClassName == "NMRspinSystemModel_CSA") { // do not remove automatic code...
-          return inputData.obj;
+  				return {data: inputData.obj};
         }
   }
 
