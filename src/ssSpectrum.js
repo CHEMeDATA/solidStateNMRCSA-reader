@@ -46,10 +46,7 @@ export class SsSpectrum extends ViewerBase {
 		const zz = inputData.data.spins[0].diagTensorValues.zz;
 		this.data = [{ dispValue1: xx }, { dispValue1: yy }, { dispValue1: zz }];
 		this.svg = svg;
-		this.width = +this.svg.attr("width"); // "+" converts string to number
-		this.height = +this.svg.attr("height");
-		console.log("width, height", this.width, this.height);
-
+		
 		this.rank2ssbs = rank2ssbs;
 		this.rank2stat = rank2stat;
 
