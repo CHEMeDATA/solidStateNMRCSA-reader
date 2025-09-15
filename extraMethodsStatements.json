@@ -19,6 +19,36 @@
 			"listObjectSchema": [
 				"NMRspinSystemModel_CSA"
 			]
+		},{
+			"objectSchemaSource": "NMRspinSystemModel_CSA",
+			"objectSchemaTarget": "nmrSpectrumObject",
+			"objectTarget": "NMRspectrumObject",
+			"type": "bridge",
+			"sourceVersion": 1,
+			"targetVersion": 1,
+			"jsLibraryGet": [
+				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/bridgeCSA_to_spectrum.js", "include": "bridgeCSA_to_spectrum"}
+			],
+			"formFields" :[
+				{
+					"dataPropertyName": "jsonSpectrum",
+					"label": "NMR file (.json)",
+					"defaultValue": "dummy.json",
+					"type": "file"
+				},	
+				{
+					"dataPropertyName": "nbPoints",
+					"label": "Number of points",
+					"defaultValue": 500.13,
+					"type": "double"
+				},	
+				{
+					"dataPropertyName": "title",
+					"label": "Title",
+					"defaultValue": "Simulation from diagonal CSA",
+					"type": "string"
+				}
+			]
 		}
 	]
 }
