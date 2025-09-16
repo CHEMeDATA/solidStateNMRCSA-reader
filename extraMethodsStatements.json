@@ -12,6 +12,7 @@
 				{"repository":"CHEMeDATA/objects-base", "fileName": "src/objectBase.js"},
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/controlSliders.js", "include": "ControlSliders"},
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/ssSpectrum.js", "include": "SsSpectrum"},
+				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/csa2xyNMR.js", "include": "csa2xyNMR"},
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/rank2ssbs.js"},
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/rank2stat.js"},
 				{"repository":"CHEMeDATA/nmr-objects", "fileName": "src/nMRspinSystemModel_CSA.js"}
@@ -24,29 +25,33 @@
 			"objectSchemaTarget": "nmrSpectrumObject",
 			"objectTarget": "NMRspectrumObject",
 			"type": "bridge",
+			"title": "Simulation powder-pattern spectrum from diagonal CSA",
 			"sourceVersion": 1,
 			"targetVersion": 1,
 			"jsLibraryGet": [
+				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/rank2ssbs.js"},
+				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/rank2stat.js"},
+				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/csa2xyNMR.js", "include": "csa2xyNMR"},
 				{"repository":"CHEMeDATA/solidStateNMRCSA-reader", "fileName": "src/bridgeCSA_to_spectrum.js", "include": "bridgeCSA_to_spectrum"}
 			],
 			"formFields" :[
 				{
 					"dataPropertyName": "jsonSpectrum",
-					"label": "NMR file (.json)",
+					"label": "NMR file (.json) - testing needing input file to complement one object towards another",
 					"defaultValue": "dummy.json",
 					"type": "file"
 				},	
 				{
-					"dataPropertyName": "nbPoints",
-					"label": "Number of points",
-					"defaultValue": 500.13,
-					"type": "double"
+					"dataPropertyName": "origin",
+					"label": "origin",
+					"defaultValue": "[Insert here the source of the data]",
+					"type": "string"
 				},	
 				{
-					"dataPropertyName": "title",
-					"label": "Title",
-					"defaultValue": "Simulation from diagonal CSA",
-					"type": "string"
+					"dataPropertyName": "frequency",
+					"label": "Larmor frequency",
+					"defaultValue": 500.0,
+					"type": "double"
 				}
 			]
 		}
