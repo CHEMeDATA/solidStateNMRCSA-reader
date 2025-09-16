@@ -2,7 +2,7 @@ import { rank2stat } from "./rank2stat.js";
 import { rank2ssbs } from "./rank2ssbs.js";
 
 // from Thomas Vosegaard
-export function csa2xyNMR(values, verbose = false) {
+export function csa2xyNMR(values, frequency = 1.0, verbose = false) {
 	const iso = (values[0] + values[1] + values[2]) / 3.0;
 	if (verbose) console.log(" iso :", iso);
 	const sorted = values.sort((a, b) => Math.abs(a - iso) - Math.abs(b - iso));

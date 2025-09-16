@@ -16,11 +16,16 @@
 		// no implementation of version of input and output objects
 
 		//Naive building
-		console.log("bridge solidStateNMRCSA input:", input);
-		console.log("bridge solidStateNMRCSA this:", this);
+		if (this.verbose) console.log("bridge solidStateNMRCSA input:", input);
+		if (this.verbose) console.log("bridge solidStateNMRCSA this:", this);
+		var valuesCSA = [];
+		valuesCSA.push(this.data.spins[0].diagTensorValues.xx);
+		valuesCSA.push(this.data.spins[0].diagTensorValues.yy);
+		valuesCSA.push(this.data.spins[0].diagTensorValues.zz);
+		if (this.verbose) console.log("bridge solidStateNMRCSA valuesCSA:", valuesCSA);
 
 		// main call to conveter
-		const ret_csa2xyNMR = csa2xyNMR([100, -100, 532]);
+		const ret_csa2xyNMR = csa2xyNMR(valuesCSA);
 		const { x, y, iso, sAni, eta, mi, ma, integral, source } = ret_csa2xyNMR;
 
 		if (this.verbose) {
