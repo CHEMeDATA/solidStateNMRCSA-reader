@@ -22,6 +22,7 @@
 			]
 		},{
 			"objectSchemaSource": "NMRspinSystemModel_CSA",
+			"object": "NMRspinSystemModel_CSA",
 			"objectSchemaTarget": "nmrSpectrumObject",
 			"objectTarget": "NMRspectrumObject",
 			"type": "bridge",

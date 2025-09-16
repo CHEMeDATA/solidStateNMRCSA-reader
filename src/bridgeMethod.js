@@ -1,7 +1,9 @@
- bridge_Editordjeanner_Version1_SourcesolidStateNMRCSA_IDnone(input) {
+ bridge_Editordjeanner_Version1_SourceNMRspinSystemModel_CSA_IDnone(input) {
+	// no implementation of version of input and output objects
+
 	//Naive building
 	console.log("bridge solidStateNMRCSA input:", input);
-
+	console.log("bridge solidStateNMRCSA this:", this);
 
 	// main call to conveter
 	const ret_csa2xyNMR = csa2xyNMR([100, -100, 532]);
