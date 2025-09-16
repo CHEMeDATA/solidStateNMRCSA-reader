@@ -16,7 +16,7 @@ export class NMRspinSystemModel_CSA extends ObjectBase {
 	_loadDemoData(demoParam = {}) {
 		var spins = [];
 		for (const elem of demoParam) {
-			const tensorValues = {
+			const diagTensorValues = {
 				wildComment:
 					"Created by schema/scripts/createSchemaSomeInstances.js using function createInstance",
 				xx: elem[0],
@@ -27,7 +27,7 @@ export class NMRspinSystemModel_CSA extends ObjectBase {
 				wildComment:
 					"Created by schema/scripts/createSchemaSomeInstances.js using function createInstance",
 				typeVariableString: "ChemicalShift",
-				tensorValues: tensorValues,
+				diagTensorValues: diagTensorValues,
 			};
 			spins.push(spin);
 		}
