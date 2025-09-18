@@ -19,7 +19,7 @@
 	</div>
 
 	<div id="slider-container2"></div>
-	
+
 	<script type="module">
 		import { SsSpectrum } from "./src/ssSpectrum.js";
 		import { ControlSliders } from "./src/controlSliders.js";
@@ -31,12 +31,12 @@
 			.attr("width", width)
 			.attr("height", height)
 			.style("shape-rendering", "crispEdges")
-			
+
 		const CSAvalues = [-100, 600, 300];
 		const inputArrayOfCSA = [CSAvalues];
 
-		const theNMRspinSystemModel_CSA = new NMRspinSystemModel_CSA({demo: inputArrayOfCSA})
-		
+		const theNMRspinSystemModel_CSA = new NMRspinSystemModel_CSA({ demo: inputArrayOfCSA })
+
 		const ssSpectrum = new SsSpectrum(theNMRspinSystemModel_CSA, svg);
 
 		const sliders = new ControlSliders('#slider-container2', {
@@ -49,7 +49,7 @@
 			precision: 0,
 			constantShift: 0, // ref. value 
 			number: 3,
-			initialValue : CSAvalues
+			initialValue: CSAvalues
 		});
 
 
@@ -66,8 +66,8 @@
 				}
 			});
 		});
-		
-     	sliders.updateDispQuality();
+
+		sliders.updateDispQuality();
 
 	</script>
 

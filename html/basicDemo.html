@@ -6,15 +6,80 @@
 </head>
 
 <body>
-
 	<h3>Static demo of powder pattern solid-state NMR 1.2</h3>
+
 	<div>
 		<svg id="drawingSVG"></svg>
 	</div>
+	<table cellpadding="6" cellspacing="0">
+
+		<tr>
+			<td>
+				<button id="save-csa">📋 Copy CHEMeDATA NMR spin system with CSA</button>
+			</td>
+			<td>
+				<a href="https://chemedata.github.io/schema/html/NMRspinSystemModel_CSA.html" target="_blank">Open
+					NMRspinSystemModel_CSA page</a>
+			</td>
+			<td>
+				<button id="open-csa">Open directly</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button id="spectrum-json">📋 Copy CHEMeDATA spectrum</button>
+			</td>
+			<td>
+				<a href="https://chemedata.github.io/schema/html/nmrSpectrumObject.html" target="_blank">Open
+					nmrSpectrumObject page</a>
+			</td>
+			<td>
+				<button id="open-nmr">Open directly</button>
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button id="mn-json">📥 Save Mnova spectrum JSON</button>
+			</td>
+			<td>Drop the file in Mnova</td>
+
+		</tr>
+	</table>
 
 	<script type="module">
 		import { SsSpectrum } from "./src/ssSpectrum.js";
 		import { NMRspinSystemModel_CSA } from "./src/nMRspinSystemModel_CSA.js";
+		import { NMRspectrumObject } from "./src/NMRspectrumObject.js";
+
+		// functions for actions
+		function downloadJSON(data, filename) {
+			const jsonString = JSON.stringify(data, null, 2);
+			const blob = new Blob([jsonString], { type: "application/json" });
+			const link = document.createElement("a");
+			link.href = URL.createObjectURL(blob);
+			link.download = filename;
+			link.click();
+			URL.revokeObjectURL(link.href);
+		}
+
+		function directLink(data, schemName) { // payload should not be too large 
+			const jsonString = JSON.stringify({ content: data });
+			const encoded = encodeURIComponent(jsonString);
+			const url = `http://127.0.0.1:5504/html/${schemName}.html#data=${encoded}`;
+			window.open(url, "_blank"); // opens in a new tab
+		}
+
+		async function copyToClipboard(myObject) {
+			try {
+				const jsonString = JSON.stringify(myObject, null, 2);
+				await navigator.clipboard.writeText(jsonString);
+				alert("Object copied to clipboard!");
+			} catch (err) {
+				console.error("Failed to copy: ", err);
+			}
+		}
+
 		const svg = d3
 			.select("#drawingSVG")
 			.attr("width", 500)
@@ -24,9 +89,67 @@
 		const CSAvalues = [-100, 600, 300];
 		const inputArrayOfCSA = [CSAvalues];
 
-		const theNMRspinSystemModel_CSA = new NMRspinSystemModel_CSA({demo: inputArrayOfCSA})
-		
+		const theNMRspinSystemModel_CSA = new NMRspinSystemModel_CSA({ demo: inputArrayOfCSA })
+
 		const ssSpectrum = new SsSpectrum(theNMRspinSystemModel_CSA, svg);
+
+		const newFields = { frequency: 500.0 };
+		const creatorParam = {
+			"editor": "djeanner",
+			"version": "1",
+			"source": "solidStateNMRCSA",
+			"id": "none"
+		};
+		const param = {
+			creatorParam: creatorParam,
+			object: "nmrSpectrumObject",
+			newFields: newFields
+		};
+		// export nmrSpectrumObject from CSA
+		const retNMRspectrum = {
+			"$schema": "https://chemedata.github.io/schema/v1/schema/nmrSpectrumObject.json",
+			...theNMRspinSystemModel_CSA._saveExportedData(param)
+		};
+
+		const theNMRspectrumObject = new NMRspectrumObject([], retNMRspectrum);
+
+		const objDataField = { "passedList": ["field1"] }; // determines what want to get
+		const paramExportToMnova = {
+			creatorParam: {
+				"editor": "djeanner",
+				"version": "1",
+				"source": "MnovaJson",
+				"id": "none"
+			},
+			object: "nmrSpectrumObject",
+			objDataField: objDataField
+		};
+		const returedExportMn = theNMRspectrumObject._saveExportedData(paramExportToMnova);
+
+		console.log("returedExportMn", returedExportMn);
+
+
+
+		// Bind buttons
+		document.getElementById("open-nmr").addEventListener("click", () => {
+			directLink(theNMRspectrumObject.data, "nmrSpectrumObject")
+		});
+
+		document.getElementById("open-csa").addEventListener("click", () => {
+			directLink(theNMRspinSystemModel_CSA.data, "NMRspinSystemModel_CSA")
+		});
+
+		document.getElementById("save-csa").addEventListener("click", () => {
+			copyToClipboard(theNMRspinSystemModel_CSA.data);
+		});
+
+		document.getElementById("spectrum-json").addEventListener("click", () => {
+			copyToClipboard(theNMRspectrumObject.data);
+		});
+
+		document.getElementById("mn-json").addEventListener("click", () => {
+			downloadJSON(returedExportMn, "csa_mnova.spectrum.json");
+		});
 
 	</script>
 

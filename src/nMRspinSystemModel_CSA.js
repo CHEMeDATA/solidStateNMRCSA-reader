@@ -1,4 +1,5 @@
 // AUTOMATIC IMPORT INSERTION WILL BE MADE HERE
+// include for bridge from solidStateNMRCSA-reader
 
 import { ObjectBase } from "./objectBase.js";
 
@@ -42,5 +43,6 @@ export class NMRspinSystemModel_CSA extends ObjectBase {
 		this.data = full;
 	}
 
-	// AUTOMATIC METHOD INSERTION WILL BE MADE HERE
+// AUTOMATIC METHOD INSERTION WILL BE MADE HERE
+
 }

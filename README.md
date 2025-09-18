@@ -1,9 +1,13 @@
 # solidStateNMRCSA-reader
 
-Display powder-pattern from CSA
-Convert solid-state NMR CSA into NMR spectra.
+Create powder-pattern spectra from CSA diagonalized values.
+This demonstrate how the NMR property object is used to produced a simulated spectrum.
 
+1) the CSA object is generated, possibly using [user-controled sliders](html/demoSimSSnmr.html).
+2) An export method of the CSA object is used to create a NMR spectrum.
+3) The NMR spectrum object can be visualized or exported into Mnova json files.
 
+[Demo](html/basicDemo.html)
 
 # Acknolegements
 
