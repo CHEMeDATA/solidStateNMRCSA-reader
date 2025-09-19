@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+	<h3>Static demo of powder pattern solid-state NMR 1.2</h3>
+
+	<div style="display: inline-block; text-align: center;">
+		"diagTensorValues": {
+		"xx": -100,
+		"yy": 600,
+		"zz": 300
+		} <div>
+			<svg id="drawingSVG"></svg>
+		</div>
+		<div style="font-size: 0.85em; color: #555; text-align: justify;">
+			Figure 1: Example of tools associated to CSA data (top). (Middle) Viewer of CSA data as powder pattern
+			calculated using (red) a
+			pick-up table
+			<a href="https://chemedata.github.io/solidStateNMRCSA-reader/" target="_blank">[1]</a> and (green) a Monte
+			Carlo method.
+		</div>
+	</div>
+
+	<div>
+		<table cellpadding="6" cellspacing="0">
+
+			<tr>
+				<td>
+					<button id="save-csa">📋 Copy the NMRspinSystemModel_CSA object</button>
+				</td>
+
+				<td>
+					<button id="open-csa">Open in the NMRspinSystemModel_CSA page</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button id="spectrum-json">📋 Copy the nmrSpectrumObject object</button>
+				</td>
+
+				<td>
+					<button id="open-nmr">Bridge to the nmrSpectrumObject page</button>
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button id="mn-json">📥 Save Mnova spectrum JSON</button>
+				</td>
+				<td>Drop the file in Mnova</td>
+
+			</tr>
+		</table>
+		<div style="font-size: 0.85em; color: #555; text-align: justify;">
+			Manipulate the <code>NMRspinSystemModel_CSA</code> object, bridge to an
+			<code>NMRspectrumObject</code> object and export the later to a <a href="https://chemedata.github.io/MnovaJson-reader/" target="_blank">Mnova json format</a>  .
+		</div>
+	</div>
+	<div>
+		<div>
+		<h3>Code of the page</h3>
+		<pre><code>
+import { SsSpectrum } from "./src/ssSpectrum.js";
+import { NMRspinSystemModel_CSA } from "./src/nMRspinSystemModel_CSA.js";
+import { NMRspectrumObject } from "./src/NMRspectrumObject.js";
+
+const svg = d3
+	.select("#drawingSVG")
+	.attr("width", 500)
+	.attr("height", 252)
+	.style("shape-rendering", "crispEdges");
+
+const CSAvalues = [-100, 600, 300];
+const inputArrayOfCSA = [CSAvalues];
+
+// creation of NMRspinSystemModel_CSA object 
+const theNMRspinSystemModel_CSA = new NMRspinSystemModel_CSA({ demo: inputArrayOfCSA })
+
+// creation of the viewer (SsSpectrum object)
+const ssSpectrum = new SsSpectrum(theNMRspinSystemModel_CSA, svg);
+
+const newFields = { frequency: 500.0 };
+const creatorParam = {
+	"editor": "djeanner",
+	"version": "1",
+	"source": "solidStateNMRCSA",
+	"id": "none"
+};
+const param = {
+	creatorParam: creatorParam,
+	object: "nmrSpectrumObject",
+	newFields: newFields
+};
+// export nmrSpectrumObject from CSA
+const retNMRspectrum = {
+	"$schema": "https://chemedata.github.io/schema/v1/schema/nmrSpectrumObject.json",
+	...theNMRspinSystemModel_CSA._saveExportedData(param)
+};
+
+const theNMRspectrumObject = new NMRspectrumObject([], retNMRspectrum);
+
+const objDataField = { "passedList": ["field1"] }; // determines what want to get
+const paramExportToMnova = {
+	creatorParam: {
+		"editor": "djeanner",
+		"version": "1",
+		"source": "MnovaJson",
+		"id": "none"
+	},
+	object: "nmrSpectrumObject",
+	objDataField: objDataField
+};
+const returedExportMn = theNMRspectrumObject._saveExportedData(paramExportToMnova);
+
+// add buttons...
+		</code></pre>
+	</div>
+	<h3>Related pages</h3>
+	</div>
+	<div>
+		<a href="https://chemedata.github.io/solidStateNMRCSA-reader/html/demoSimSSnmr.html" target="_blank">Dynamic demo</a> 
+	</div>
+	<div>
+		<a href="https://chemedata.github.io/solidStateNMRCSA-reader/html/basicDemo.html" target="_blank">Basic demo</a>
+	</div>
+	<script type="module">
+		import { SsSpectrum } from "./src/ssSpectrum.js";
+		import { NMRspinSystemModel_CSA } from "./src/nMRspinSystemModel_CSA.js";
+		import { NMRspectrumObject } from "./src/NMRspectrumObject.js";
+
+		// functions for actions
+		function downloadJSON(data, filename) {
+			const jsonString = JSON.stringify(data, null, 2);
+			const blob = new Blob([jsonString], { type: "application/json" });
+			const link = document.createElement("a");
+			link.href = URL.createObjectURL(blob);
+			link.download = filename;
+			link.click();
+			URL.revokeObjectURL(link.href);
+		}
+
+		function directLink(data, schemName) { // payload should not be too large 
+			const jsonString = JSON.stringify({ content: data });
+			const encoded = encodeURIComponent(jsonString);
+			const url = `http://127.0.0.1:5504/html/${schemName}.html#data=${encoded}`;
+			window.open(url, "_blank"); // opens in a new tab
+		}
+
+		async function copyToClipboard(myObject) {
+			try {
+				const jsonString = JSON.stringify(myObject, null, 2);
+				await navigator.clipboard.writeText(jsonString);
+				alert("Object copied to clipboard!");
+			} catch (err) {
+				console.error("Failed to copy: ", err);
+			}
+		}
+
+		const svg = d3
+			.select("#drawingSVG")
+			.attr("width", 500)
+			.attr("height", 252)
+			.style("shape-rendering", "crispEdges");
+
+		const CSAvalues = [-100, 600, 300];
+		const inputArrayOfCSA = [CSAvalues];
+
+		// creation of NMRspinSystemModel_CSA object 
+		const theNMRspinSystemModel_CSA = new NMRspinSystemModel_CSA({ demo: inputArrayOfCSA })
+
+		// creation of the viewer (SsSpectrum object)
+		const ssSpectrum = new SsSpectrum(theNMRspinSystemModel_CSA, svg);
+
+		const newFields = { frequency: 500.0 };
+		const creatorParam = {
+			"editor": "djeanner",
+			"version": "1",
+			"source": "solidStateNMRCSA",
+			"id": "none"
+		};
+		const param = {
+			creatorParam: creatorParam,
+			object: "nmrSpectrumObject",
+			newFields: newFields
+		};
+		// export nmrSpectrumObject from CSA
+		const retNMRspectrum = {
+			"$schema": "https://chemedata.github.io/schema/v1/schema/nmrSpectrumObject.json",
+			...theNMRspinSystemModel_CSA._saveExportedData(param)
+		};
+
+		const theNMRspectrumObject = new NMRspectrumObject([], retNMRspectrum);
+
+		const objDataField = { "passedList": ["field1"] }; // determines what want to get
+		const paramExportToMnova = {
+			creatorParam: {
+				"editor": "djeanner",
+				"version": "1",
+				"source": "MnovaJson",
+				"id": "none"
+			},
+			object: "nmrSpectrumObject",
+			objDataField: objDataField
+		};
+		const returedExportMn = theNMRspectrumObject._saveExportedData(paramExportToMnova);
+
+		console.log("returedExportMn", returedExportMn);
+
+
+
+		// Bind buttons
+		document.getElementById("open-nmr").addEventListener("click", () => {
+			directLink(theNMRspectrumObject.data, "nmrSpectrumObject")
+		});
+
+		document.getElementById("open-csa").addEventListener("click", () => {
+			directLink(theNMRspinSystemModel_CSA.data, "NMRspinSystemModel_CSA")
+		});
+
+		document.getElementById("save-csa").addEventListener("click", () => {
+			copyToClipboard(theNMRspinSystemModel_CSA.data);
+		});
+
+		document.getElementById("spectrum-json").addEventListener("click", () => {
+			copyToClipboard(theNMRspectrumObject.data);
+		});
+
+		document.getElementById("mn-json").addEventListener("click", () => {
+			downloadJSON(returedExportMn, "csa_mnova.spectrum.json");
+		});
+
+	</script>
+
+</body>
+
+</html>
