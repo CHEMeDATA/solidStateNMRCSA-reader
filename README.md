@@ -12,7 +12,7 @@ This demonstrate how the NMR property objects can be used to produced a simulate
 
 [Dynamic demo](html/demoSimSSnmr.html) illustrates how to interact with objects and update visualization.
 
-[Tool demo](html/toolDemo.html) illustrates how to create and manipulate spectra and export them as Mnova json.
+[Tool demo](html/toolsDemo.html) illustrates how to create and manipulate spectra and export them as Mnova json.
 
 [Basic demo](html/basicDemo.html) illustrates how to easily include and visualize CHEMeDATA objects in the browser.
 
